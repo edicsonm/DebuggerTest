@@ -1,0 +1,37 @@
+<project name="greeting">
+	
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes" debug="true" debuglevel="lines,vars,source" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/Greeting.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="au.com.edimoto.Greeding" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java jar="build/jar/Greeting.jar" fork="true">
+			<arg value="Hamilton !!!"/>
+			<jvmarg value="-Xdebug"/>
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=y" />
+		</java>
+	</target>
+
+	<target name="runClass">
+		<java classname="au.com.edimoto.Greeding" fork="true" classpath="build/classes/">
+			<arg value="Hamilton !!!"/>
+			<jvmarg value="-Xdebug"/>
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=y" />
+		</java>
+	</target>
+
+</project>
